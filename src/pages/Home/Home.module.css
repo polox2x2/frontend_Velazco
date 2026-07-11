@@ -118,9 +118,8 @@
 }
 
 .productGrid {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
   max-width: 1000px;
   margin: 0 auto;
@@ -130,8 +129,6 @@
   animation: floatUp 0.8s ease-out forwards;
   opacity: 0;
   transform: translateY(30px);
-  /* Make sure the card itself has a reasonable width */
-  flex: 0 1 300px; 
 }
 
 @keyframes floatUp {
@@ -173,7 +170,7 @@
   }
 
   .productGrid {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 1rem;
   }
 }
