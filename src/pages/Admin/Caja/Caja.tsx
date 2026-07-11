@@ -120,6 +120,19 @@ export default function Caja() {
       return;
     }
 
+    // Pedir DNI (opcional)
+    const { value: dniValue, isDismissed: isDniDismissed } = await Swal.fire({
+      title: 'Datos del Cliente',
+      input: 'text',
+      inputLabel: 'DNI / RUC (Opcional)',
+      inputPlaceholder: 'Ingrese número de documento o deje en blanco',
+      showCancelButton: true,
+      confirmButtonText: 'Continuar',
+      cancelButtonText: 'Cancelar'
+    });
+
+    if (isDniDismissed) return; // Si cancela el prompt de DNI
+    
     let changeAmount = 0;
     
     // Simular flujo según método de pago
@@ -177,15 +190,61 @@ export default function Caja() {
       // Step 3: Confirm Dispatch (Entrega inmediata en tienda física)
       await adminApi.confirmDispatch(orderResponse.id);
 
-      if (paymentMethod === 'Efectivo') {
-        Swal.fire({
-          icon: 'success',
-          title: '¡Venta completada!',
-          html: `Vuelto a entregar: <b>S/. ${changeAmount.toFixed(2)}</b>`,
-        });
-      } else {
-        Swal.fire('¡Éxito!', 'Venta procesada exitosamente.', 'success');
-      }
+      // Generar Recibo HTML
+      const currentDate = new Date().toLocaleString('es-PE');
+      const ticketHtml = `
+        <div style="text-align: left; font-family: monospace; font-size: 14px; padding: 10px; background: #fff; border: 1px dashed #ccc; border-radius: 5px;">
+          <div style="text-align: center; margin-bottom: 10px;">
+            <strong>PANADERÍA VELAZCO</strong><br>
+            RUC: 20123456789<br>
+            Boleta de Venta Electrónica<br>
+            <small>${currentDate}</small>
+          </div>
+          <hr style="border-top: 1px dashed #000;"/>
+          <div>
+            <strong>Cliente:</strong> ${clientName.trim()}<br>
+            <strong>DNI:</strong> ${dniValue || 'No especificado'}<br>
+            <strong>Método:</strong> ${paymentMethod}
+          </div>
+          <hr style="border-top: 1px dashed #000;"/>
+          <table style="width: 100%; font-size: 14px;">
+            <thead>
+              <tr style="text-align: left;">
+                <th>Cant</th>
+                <th>Producto</th>
+                <th style="text-align: right;">Subt</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${cart.map(item => `
+                <tr>
+                  <td>${item.quantity}</td>
+                  <td>${item.name}</td>
+                  <td style="text-align: right;">S/. ${(item.price * item.quantity).toFixed(2)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+          <hr style="border-top: 1px dashed #000;"/>
+          <div style="text-align: right;">
+            <strong>TOTAL: S/. ${total.toFixed(2)}</strong>
+          </div>
+          ${paymentMethod === 'Efectivo' ? `<div style="text-align: right; margin-top: 5px; color: #155724;"><strong>Vuelto: S/. ${changeAmount.toFixed(2)}</strong></div>` : ''}
+          <div style="text-align: center; margin-top: 20px; font-size: 12px;">
+            ¡Gracias por su preferencia!
+          </div>
+        </div>
+      `;
+
+      Swal.fire({
+        title: '¡Venta completada!',
+        html: ticketHtml,
+        confirmButtonText: 'Cerrar e Imprimir',
+        confirmButtonColor: '#ff5a5f',
+        width: 400
+      }).then(() => {
+        // Here you could trigger window.print() if it was a dedicated print view
+      });
       
       // Clean up
       setCart([]);
