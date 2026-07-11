@@ -6,15 +6,16 @@ import {
   MonitorCheck, 
   Truck, 
   ChefHat,
-  ClipboardList,
   Users,
   LogOut
 } from 'lucide-react';
 import styles from './AdminSidebar.module.css';
 import { authApi } from '../../services/api';
+import { useAuth } from '../../contexts/AuthContext';
 
 export default function AdminSidebar() {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -28,25 +29,27 @@ export default function AdminSidebar() {
   };
 
   const navItems = [
-    { path: '/admin/dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard' },
-    { path: '/admin/inventario', icon: <PackageSearch size={20} />, label: 'Inventario' },
-    { path: '/admin/pedidos', icon: <ShoppingBag size={20} />, label: 'Pedidos en Tienda' },
-    { path: '/admin/caja', icon: <MonitorCheck size={20} />, label: 'Caja' },
-    { path: '/admin/entregas', icon: <Truck size={20} />, label: 'Entregas' },
-    { path: '/admin/produccion', icon: <ChefHat size={20} />, label: 'Producción' },
-    { path: '/admin/ordenes', icon: <ClipboardList size={20} />, label: 'Órdenes' },
-    { path: '/admin/usuarios', icon: <Users size={20} />, label: 'Usuarios' },
+    { path: '/admin/dashboard', icon: <LayoutDashboard size={20} />, label: 'Dashboard', roles: ['Administrador', 'Producción'] },
+    { path: '/admin/inventario', icon: <PackageSearch size={20} />, label: 'Inventario', roles: ['Administrador'] },
+    { path: '/admin/pedidos', icon: <ShoppingBag size={20} />, label: 'Pedidos en Tienda', roles: ['Administrador', 'Cajero'] },
+    { path: '/admin/caja', icon: <MonitorCheck size={20} />, label: 'Caja', roles: ['Administrador', 'Cajero'] },
+    { path: '/admin/entregas', icon: <Truck size={20} />, label: 'Entregas', roles: ['Administrador', 'Cajero', 'Entregas'] },
+    { path: '/admin/produccion', icon: <ChefHat size={20} />, label: 'Producción', roles: ['Administrador', 'Producción'] },
+    { path: '/admin/usuarios', icon: <Users size={20} />, label: 'Usuarios', roles: ['Administrador'] },
   ];
+
+  const filteredNavItems = navItems.filter(item => user && item.roles.includes(user.rol));
 
   return (
     <aside className={styles.sidebar}>
       <div className={styles.logoContainer}>
         <img src="/img/logo.png" alt="Velazco Logo" className={styles.logo} />
         <h2 className={styles.title}>Admin Panel</h2>
+        {user && <span className={styles.userRoleBadge}>{user.rol}</span>}
       </div>
 
       <nav className={styles.nav}>
-        {navItems.map((item) => (
+        {filteredNavItems.map((item) => (
           <NavLink 
             key={item.path}
             to={item.path} 

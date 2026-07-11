@@ -13,7 +13,6 @@ import Pedidos from '../pages/Admin/Pedidos/Pedidos'
 import Caja from '../pages/Admin/Caja/Caja'
 import Entregas from '../pages/Admin/Entregas/Entregas'
 import Produccion from '../pages/Admin/Produccion/Produccion'
-import Ordenes from '../pages/Admin/Ordenes/Ordenes'
 import Usuarios from '../pages/Admin/Usuarios/Usuarios'
 
 function AppRouter() {
@@ -39,7 +38,6 @@ function AppRouter() {
           <Route path="caja" element={<Caja />} />
           <Route path="entregas" element={<Entregas />} />
           <Route path="produccion" element={<Produccion />} />
-          <Route path="ordenes" element={<Ordenes />} />
           <Route path="usuarios" element={<Usuarios />} />
           <Route path="*" element={<div style={{padding: '2rem'}}>Módulo en construcción</div>} />
         </Route>

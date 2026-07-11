@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useEffect, type ReactNode } from 'react'
+import { createContext, useContext, useReducer, useEffect, useCallback, type ReactNode } from 'react'
 import type { CartItem } from '../interfaces/CartItem'
 import type { Producto } from '../interfaces/Producto'
 
@@ -112,21 +112,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [state.addedProductId])
 
-  const agregarAlCarrito = (producto: Producto) => {
+  const agregarAlCarrito = useCallback((producto: Producto) => {
     dispatch({ type: 'ADD_ITEM', payload: producto })
-  }
+  }, [])
 
-  const removerDelCarrito = (id: number) => {
+  const removerDelCarrito = useCallback((id: number) => {
     dispatch({ type: 'REMOVE_ITEM', payload: id })
-  }
+  }, [])
 
-  const actualizarCantidad = (id: number, cantidad: number) => {
+  const actualizarCantidad = useCallback((id: number, cantidad: number) => {
     dispatch({ type: 'UPDATE_QTY', payload: { id, cantidad } })
-  }
+  }, [])
 
-  const limpiarCarrito = () => {
+  const limpiarCarrito = useCallback(() => {
     dispatch({ type: 'CLEAR_CART' })
-  }
+  }, [])
 
   const total = state.items.reduce(
     (sum, item) => sum + item.producto.precio * item.cantidad,

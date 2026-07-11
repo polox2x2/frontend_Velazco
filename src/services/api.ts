@@ -75,6 +75,18 @@ export const adminApi = {
     const response = await api.get('/users');
     return response.data;
   },
+  createUser: async (userData: any) => {
+    const response = await api.post('/users', userData);
+    return response.data;
+  },
+  updateUser: async (id: number, userData: any) => {
+    const response = await api.put(`/users/${id}`, userData);
+    return response.data;
+  },
+  deleteUser: async (id: number) => {
+    const response = await api.delete(`/users/${id}`);
+    return response.data;
+  },
   getAvailableProducts: async () => {
     const response = await api.get('/products/available');
     return response.data;
