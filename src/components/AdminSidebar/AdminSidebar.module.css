@@ -168,3 +168,37 @@
   letter-spacing: 0.5px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    flex-direction: column;
+  }
+
+  .nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0.5rem;
+    white-space: nowrap;
+  }
+
+  .navItem {
+    padding: 0.5rem 1rem;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .navItemActive {
+    border-right: none;
+    border-bottom: 3px solid #e74c3c;
+  }
+  
+  .logoContainer {
+    padding: 1rem;
+    align-items: center;
+  }
+}

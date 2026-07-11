@@ -10,3 +10,13 @@
   overflow-y: auto;
   max-height: 100vh;
 }
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+  .mainContent {
+    padding: 1rem;
+    max-height: calc(100vh - 100px); /* Adjust according to top bar height */
+  }
+}
