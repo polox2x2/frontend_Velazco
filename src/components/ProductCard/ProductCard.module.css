@@ -77,6 +77,8 @@
   transition: all 0.25s ease;
   min-height: 44px;
   box-shadow: 0 4px 10px rgba(229, 115, 115, 0.25);
+  white-space: normal;
+  text-align: center;
 }
 
 .addBtn:hover {

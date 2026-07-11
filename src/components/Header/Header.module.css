@@ -38,6 +38,8 @@
   color: #1a1a2e;
   outline: none;
   font-family: inherit;
+  min-width: 0;
+  width: 100%;
 }
 
 .searchInput::placeholder {
