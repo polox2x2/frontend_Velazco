@@ -85,7 +85,7 @@ function Checkout() {
         const orderId = parseInt(orderIdStr, 10);
         publicApi.validatePayment(orderId, paymentId)
           .then(() => {
-            console.log('Payment validated successfully');
+            // Payment validated successfully
           })
           .catch(err => {
             console.error('Error validating payment', err);
@@ -135,7 +135,6 @@ function Checkout() {
 
       if (metodoPago === 'mercadopago') {
         const gateways = paymentRegistry.obtenerDisponibles()
-        console.log('[Checkout] Procesando pago con:', metodoPago, 'total:', total)
         if (gateways.length > 0) {
           const resultado = await gateways[0].procesarPago(total, 'PEN', items, orderResponse.id)
           if (resultado.exito && resultado.urlRedireccion) {

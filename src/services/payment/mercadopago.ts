@@ -10,12 +10,11 @@ export const mercadopagoGateway: PaymentGateway = {
   icono: '/img/mercadopago-logo.png',
   estaDisponible: () => true,
   procesarPago: async (
-    monto: number,
-    moneda: string,
-    items: CartItem[],
+    _monto: number,
+    _moneda: string,
+    _items: CartItem[],
     orderId?: number
   ): Promise<PaymentResult> => {
-    console.log('[Mercado Pago] Iniciando pago:', { monto, moneda, items, orderId })
     
     if (!orderId) {
       return {
