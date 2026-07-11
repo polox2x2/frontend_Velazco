@@ -51,7 +51,9 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         if (response.token && response.user) {
           login(response.token, response.user);
           onClose();
-          if (response.user.rol !== 'Cliente') {
+          if (response.user.rol === 'Cajero') {
+            navigate('/admin/caja');
+          } else if (response.user.rol !== 'Cliente') {
             navigate('/admin/dashboard');
           }
         }
@@ -60,7 +62,9 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         if (response.token && response.user) {
           login(response.token, response.user);
           onClose();
-          if (response.user.rol !== 'Cliente') {
+          if (response.user.rol === 'Cajero') {
+            navigate('/admin/caja');
+          } else if (response.user.rol !== 'Cliente') {
             navigate('/admin/dashboard');
           }
         }
