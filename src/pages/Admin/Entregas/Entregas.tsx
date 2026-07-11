@@ -143,6 +143,13 @@ export default function Entregas() {
                       <span>Entregado por: <strong>{order.deliveredBy.name}</strong></span>
                     </div>
                   )}
+                  <div className={styles.cardProducts}>
+                    {order.details?.map((d: any, i: number) => (
+                      <span key={i} className={styles.productTag}>
+                        {d.product?.name || 'Producto'} <strong className={styles.qty}>x{d.quantity}</strong>
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))
