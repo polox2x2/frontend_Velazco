@@ -198,3 +198,24 @@
   box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
   transform: translateY(-1px);
 }
+
+@media (max-width: 768px) {
+  .container {
+    margin: 0 -1rem;
+    width: calc(100% + 2rem);
+  }
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  .refreshBtn {
+    width: 100%;
+  }
+  .kanban {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+}

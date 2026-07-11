@@ -412,3 +412,29 @@
 .submitBtn:hover {
   background: #1d4ed8;
 }
+
+@media (max-width: 768px) {
+  .container {
+    margin: 0 -1rem;
+    width: calc(100% + 2rem);
+  }
+  .header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+    padding: 0 1rem;
+  }
+  .headerActions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .refreshBtn, .newBtn {
+    width: 100%;
+    justify-content: center;
+  }
+  .kanban {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+}
