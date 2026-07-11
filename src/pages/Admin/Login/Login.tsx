@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '../../../services/api';
 import { useAuth } from '../../../contexts/AuthContext';
@@ -10,7 +10,23 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, isAuthenticated, user } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      if (user.rol === 'Cajero') {
+        navigate('/admin/caja', { replace: true });
+      } else if (user.rol === 'Entregas') {
+        navigate('/admin/entregas', { replace: true });
+      } else if (user.rol === 'Producción') {
+        navigate('/admin/produccion', { replace: true });
+      } else if (user.rol === 'Cliente') {
+        navigate('/', { replace: true });
+      } else {
+        navigate('/admin/dashboard', { replace: true });
+      }
+    }
+  }, [isAuthenticated, user, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
