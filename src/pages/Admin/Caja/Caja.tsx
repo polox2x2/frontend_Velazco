@@ -120,6 +120,43 @@ export default function Caja() {
       return;
     }
 
+    let changeAmount = 0;
+    
+    // Simular flujo según método de pago
+    if (paymentMethod === 'Efectivo') {
+      const { value: cashAmountStr, isConfirmed } = await Swal.fire({
+        title: 'Pago en Efectivo',
+        input: 'number',
+        inputLabel: `Total a cobrar: S/. ${total.toFixed(2)}`,
+        inputPlaceholder: 'Ingrese el monto recibido',
+        showCancelButton: true,
+        confirmButtonText: 'Cobrar',
+        cancelButtonText: 'Cancelar',
+        inputValidator: (value) => {
+          if (!value) return 'Debes ingresar un monto';
+          if (parseFloat(value) < total) return 'El monto es menor al total';
+          return null;
+        }
+      });
+      
+      if (!isConfirmed || !cashAmountStr) return; // El usuario canceló
+      
+      changeAmount = parseFloat(cashAmountStr) - total;
+    } else {
+      // Simular pago con tarjeta, yape, etc
+      await Swal.fire({
+        title: `Procesando pago con ${paymentMethod}...`,
+        text: 'Por favor espere (simulación de POS/QR)',
+        timer: 1500,
+        timerProgressBar: true,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+    }
+
     try {
       setIsSubmitting(true);
       
@@ -140,7 +177,15 @@ export default function Caja() {
       // Step 3: Confirm Dispatch (Entrega inmediata en tienda física)
       await adminApi.confirmDispatch(orderResponse.id);
 
-      Swal.fire('¡Éxito!', 'Venta procesada exitosamente.', 'success');
+      if (paymentMethod === 'Efectivo') {
+        Swal.fire({
+          icon: 'success',
+          title: '¡Venta completada!',
+          html: `Vuelto a entregar: <b>S/. ${changeAmount.toFixed(2)}</b>`,
+        });
+      } else {
+        Swal.fire('¡Éxito!', 'Venta procesada exitosamente.', 'success');
+      }
       
       // Clean up
       setCart([]);
