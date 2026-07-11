@@ -1,0 +1,179 @@
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 3rem 2rem;
+}
+
+.heroText {
+  flex: 1;
+}
+
+.heroText h1 {
+  font-size: 2.5rem;
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.heroText p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.btnCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  background: #e57373;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+
+.btnCta:hover {
+  background: #d46060;
+}
+
+.heroImageContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.heroImage {
+  max-width: 100%;
+  height: auto;
+}
+
+.historySection {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.historySection h2 {
+  font-size: 2rem;
+  color: #1a1a2e;
+  margin-bottom: 2rem;
+}
+
+.aboutContainer {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.aboutImageContainer {
+  flex: 1;
+}
+
+.aboutImage {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.aboutText {
+  flex: 1;
+  text-align: left;
+}
+
+.aboutText h3 {
+  font-size: 1.5rem;
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+}
+
+.aboutText p {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.productsSection {
+  padding: 4rem 2rem;
+}
+
+.productsBanner {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.productsBanner h2 {
+  font-size: 2rem;
+  color: #1a1a2e;
+}
+
+.resultCount {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 0.5rem;
+}
+
+.productGrid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.animatedCard {
+  animation: floatUp 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+  /* Make sure the card itself has a reasonable width */
+  flex: 0 1 300px; 
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .heroText h1 {
+    font-size: 1.8rem;
+  }
+
+  .historySection {
+    padding: 2.5rem 1rem;
+  }
+
+  .aboutContainer {
+    flex-direction: column;
+  }
+
+  .aboutText {
+    text-align: center;
+  }
+
+  .productsSection {
+    padding: 2.5rem 1rem;
+  }
+
+  .productGrid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+}

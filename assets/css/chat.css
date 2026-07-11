@@ -1,0 +1,171 @@
+:root {
+    /* n8n Chat CSS Variables Overrides */
+    --chat--color--primary: #D44D4D;
+    --chat--color--secondary: #ffffff;
+    --chat--color--background: #D44D4D;
+    --chat--header--background: #ffffff;
+    --chat--header--color: #000000;
+    --chat--message--bot--background: #ffffff;
+    --chat--message--bot--color: #3b69b6;
+    --chat--message--user--background: #ffffff;
+    --chat--message--user--color: #000000;
+}
+
+/* Floating Robot Button */
+.chat-button {
+    background: transparent !important;
+    background-image: url('../img/robot.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    width: 100px !important;
+    height: 100px !important;
+    border: none !important;
+    box-shadow: none !important;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    bottom: 20px !important;
+    right: 20px !important;
+}
+
+.chat-button:hover {
+    transform: scale(1.1);
+}
+
+.chat-button svg, 
+.n8n-chat-widget-bubble {
+    display: none !important;
+}
+
+/* Chat Window Container */
+.chat-window {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2) !important;
+    border: 2px solid #D44D4D !important;
+    bottom: 130px !important;
+}
+
+/* Header Styling */
+.chat-header {
+    background-color: #ffffff !important;
+    padding: 15px 20px !important;
+    border-bottom: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.chat-header-title {
+    font-weight: 800 !important;
+    font-size: 1.1rem !important;
+    color: #000000 !important;
+}
+
+/* The red decorative bar in the header */
+.chat-header::after {
+    content: '';
+    width: 60px;
+    height: 8px;
+    background-color: #D44D4D;
+    border-radius: 4px;
+    position: absolute;
+    left: 65%;
+    transform: translateX(-50%);
+}
+
+/* Close Button in Header */
+.chat-header button {
+    background-color: #D44D4D !important;
+    color: #ffffff !important;
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: none !important;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 0 !important;
+}
+
+.chat-header button svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+/* Chat History (Messages Area) */
+.chat-message-history {
+    background-color: #D44D4D !important;
+    padding: 20px !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.3) transparent;
+}
+
+/* Message Bubbles */
+.chat-message {
+    margin-bottom: 15px !important;
+}
+
+.chat-message-bubble {
+    background-color: #ffffff !important;
+    border-radius: 20px !important;
+    padding: 12px 18px !important;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
+    max-width: 85% !important;
+}
+
+.chat-message-bot .chat-message-bubble {
+    color: #3b69b6 !important; /* Blue text for bot */
+    border-bottom-left-radius: 5px !important;
+}
+
+.chat-message-user .chat-message-bubble {
+    color: #000000 !important; /* Black text for user */
+    border-bottom-right-radius: 5px !important;
+}
+
+/* Input Area */
+.chat-input {
+    background-color: transparent !important;
+    padding: 15px 20px !important;
+    border-top: none !important;
+}
+
+.chat-input input {
+    background-color: #ffffff !important;
+    border: 1px solid #ccc !important;
+    border-radius: 30px !important;
+    padding: 12px 20px !important;
+    color: #333 !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05) !important;
+}
+
+.chat-input button {
+    color: #D44D4D !important;
+}
+
+/* Adjustments for the specific classes used by the n8n bundle */
+[class*="chat-window-toggle"], [class*="chat-button"] {
+    background: transparent !important;
+    background-image: url('../img/robot.png') !important;
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    width: 100px !important;
+    height: 100px !important;
+}
+
+[class*="chat-window-toggle"] *, [class*="chat-button"] * {
+    display: none !important;
+}
+
+[class*="chat-window-message-history"] {
+    background-color: #D44D4D !important;
+}
+
+[class*="chat-window-header"] {
+    background-color: #ffffff !important;
+}

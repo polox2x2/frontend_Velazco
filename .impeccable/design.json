@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-12T07:27:00.000Z",
+  "title": "Design System: Dulcería y Pastelería Velazco",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Salmón Dulce", "canonical": "#e57373", "tonalRamp": ["#fce4e4", "#f8b8b8", "#f49a9a", "#e57373", "#d46060", "#c44c4c", "#b33e3e", "#a22f2f"] },
+      "ink": { "role": "neutral", "displayName": "Marino Dulce", "canonical": "#1a1a2e", "tonalRamp": ["#e8e8ee", "#c4c4d4", "#9e9eb8", "#78789e", "#525284", "#2e2e56", "#1a1a2e", "#0e0e1a"] },
+      "surface-warm": { "role": "neutral", "displayName": "Crema de Leche", "canonical": "#f9f6f0", "tonalRamp": ["#fefdfc", "#fcf9f5", "#f9f6f0", "#f0ebe0", "#e6dfcf", "#ddd3be", "#d4c8ae", "#cabc9d"] },
+      "success": { "role": "tertiary", "displayName": "Menta Dulce", "canonical": "#27ae60", "tonalRamp": ["#e8f8ef", "#b8e8cc", "#88d8a9", "#58c886", "#27ae60", "#1f8e4d", "#176e3a", "#0f4e27"] },
+      "error": { "role": "tertiary", "displayName": "Ají", "canonical": "#e74c3c", "tonalRamp": ["#fde8e8", "#f8b8b0", "#f48878", "#e74c3c", "#d43c2c", "#c12c1c", "#ae1c0c", "#9b0c00"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headlines, page titles, section banners." },
+      "body": { "displayName": "Body", "purpose": "General prose, descriptions, form inputs." },
+      "label": { "displayName": "Label", "purpose": "Form labels, buttons, badges, nav links." }
+    },
+    "shadows": [
+      { "name": "surface", "value": "none", "purpose": "Default flat state for cards, inputs, containers." },
+      { "name": "lifted", "value": "0 4px 12px rgba(0,0,0,0.08)", "purpose": "Default card elevation, checkout columns." },
+      { "name": "hover", "value": "0 8px 24px rgba(0,0,0,0.12)", "purpose": "Card hover, modals, drawers." },
+      { "name": "modal", "value": "0 30px 60px rgba(0,0,0,0.2)", "purpose": "Overlays, alert dialogs." }
+    ],
+    "motion": [
+      { "name": "ease-state", "value": "0.2s ease", "purpose": "Default transition for hover, focus, and state changes." },
+      { "name": "ease-drawer", "value": "0.3s ease-out", "purpose": "Sidebar drawer and panel slide transitions." },
+      { "name": "ease-zoom", "value": "0.3s ease", "purpose": "Product image hover zoom." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main call-to-action. Used for add to cart, pay, submit, confirm.",
+      "html": "<button class=\"ds-btn-primary\">Agregar al carrito</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.25rem; background: #e57373; color: #fff; border: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background 0.2s, transform 0.15s; min-height: 44px; } .ds-btn-primary:hover { background: #d46060; } .ds-btn-primary:active { transform: scale(0.96); }"
+    },
+    {
+      "name": "Dark Button",
+      "kind": "button",
+      "refersTo": "button-dark",
+      "description": "Secondary action. Used for apply discount, checkout navigation.",
+      "html": "<button class=\"ds-btn-dark\">Aplicar</button>",
+      "css": ".ds-btn-dark { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.6rem 1.25rem; background: #1a1a2e; color: #fff; border: none; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: background 0.2s; min-height: 44px; } .ds-btn-dark:hover { background: #2a2a4e; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Standard text input for forms, search, checkout fields.",
+      "html": "<input class=\"ds-input\" placeholder=\"Correo electrónico\">",
+      "css": ".ds-input { width: 100%; padding: 0.65rem 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem; font-family: inherit; color: #1a1a2e; background: #fff; transition: border-color 0.2s, box-shadow 0.2s; } .ds-input:focus { outline: none; border-color: #e57373; box-shadow: 0 0 0 3px rgba(229,115,115,0.12); } .ds-input::placeholder { color: #bbb; }"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Product display card used in Tienda grid and Home section.",
+      "html": "<div class=\"ds-card\"><div class=\"ds-card-img\"><img src=\"https://placehold.co/300x300/f9f6f0/1a1a2e?text=Producto\" alt=\"\"></div><div class=\"ds-card-body\"><h3 class=\"ds-card-title\">Besitos</h3><p class=\"ds-card-desc\">Dulce tradicional iqueño</p><p class=\"ds-card-price\">S/ 8.00</p></div></div>",
+      "css": ".ds-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s; } .ds-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); } .ds-card-img { width: 100%; aspect-ratio: 1; overflow: hidden; background: #f9f6f0; } .ds-card-img img { width: 100%; height: 100%; object-fit: cover; } .ds-card-body { padding: 1rem; text-align: center; } .ds-card-title { font-size: 1.1rem; font-weight: 700; color: #1a1a2e; margin: 0 0 0 0; } .ds-card-desc { font-size: 0.85rem; color: #888; margin: 0.3rem 0 0.5rem; } .ds-card-price { font-size: 1.15rem; font-weight: 700; color: #e57373; margin: 0; }"
+    },
+    {
+      "name": "Navigation Link (Sidebar)",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Sidebar navigation item with icon and label.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-link ds-nav-active\" href=\"#\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><path d=\"M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z\"/></svg><span>Inicio</span></a><a class=\"ds-nav-link\" href=\"#\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"2\" y=\"3\" width=\"20\" height=\"14\" rx=\"2\"/><path d=\"M8 21h8\"/></svg><span>Tienda</span></a></nav>",
+      "css": ".ds-nav { display: flex; flex-direction: column; gap: 0.35rem; } .ds-nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.8rem 1rem; border-radius: 10px; color: #1a1a2e; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: background 0.2s, color 0.2s; } .ds-nav-link:hover { background: rgba(229,115,115,0.1); } .ds-nav-active { background: rgba(229,115,115,0.15); border-left: 4px solid #e57373; }"
+    },
+    {
+      "name": "Radio Card (Payment Method)",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Selectable payment method card in checkout.",
+      "html": "<label class=\"ds-radio-card\"><input type=\"radio\" name=\"pay\" checked class=\"ds-radio-input\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"1\" y=\"4\" width=\"22\" height=\"16\" rx=\"2\"/><line x1=\"1\" y1=\"10\" x2=\"23\" y2=\"10\"/></svg><span>Mercado Pago</span></label>",
+      "css": ".ds-radio-card { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: #fff; border: 1px solid #ddd; border-radius: 10px; cursor: pointer; font-size: 0.9rem; color: #1a1a2e; transition: border-color 0.2s, background 0.2s; } .ds-radio-card:has(:checked) { border-color: #e57373; background: rgba(229,115,115,0.04); } .ds-radio-input { appearance: none; width: 20px; height: 20px; border: 2px solid #ddd; border-radius: 50%; flex-shrink: 0; cursor: pointer; transition: border-color 0.2s; } .ds-radio-input:checked { border-color: #e57373; background: #e57373; box-shadow: inset 0 0 0 4px #fff; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Dulce Tradición",
+    "overview": "Un sistema visual que huele a pan recién horneado. Cálido sin ser empalagoso, tradicional sin ser anticuado. La comida es la protagonista; el diseño se aparta para dejar brillar los colores salmón, las fotos de postres y los nombres familiares. Cada página acerca al cliente a los productos, no lo distrae con decoración vacía.\n\nEste sistema rechaza explícitamente los templates de pastelería genérica con fondos blancos fríos y fotos de stock, el e-commerce sobrecargado de popups, y la tipografía decorativa ilegible. Prefiere silencio visual, contraste suficiente y un flujo de compra sin fricción.",
+    "keyCharacteristics": [
+      "Paleta bicolor: coral salmón sobre base crema y blanco",
+      "Tipografía de dos caras: serif clásica para títulos, sans-serif limpia para cuerpo",
+      "Curvas suaves en esquinas (8-12px), sombras con matiz salmón",
+      "Botones sin contorno ni efecto glass: sólidos, directos, predecibles",
+      "Transiciones rápidas (0.2s), nunca coreografiadas"
+    ],
+    "rules": [
+      { "name": "La Regla del Salmón Raro", "body": "El acento coral aparece en ≤15% del área visible de cualquier pantalla. Su rareza es el punto: cuando se usa, es una acción o un estado importante.", "section": "colors" },
+      { "name": "La Regla de la Voz Única", "body": "Solo dos familias tipográficas: Playfair Display para display/headline, system-ui para todo lo demás. Sin tercera familia decorativa.", "section": "typography" },
+      { "name": "La Regla Plana por Defecto", "body": "Las superficies son planas en reposo. Las sombras aparecen solo como respuesta a estado (hover, foco) o contenedores elevados (modales, drawers).", "section": "elevation" }
+    ],
+    "dos": [
+      "Usar el salmón (#e57373) en ≤15% del área: botones, badges, acentos activos.",
+      "Preferir fondo crema (#f9f6f0) para secciones completas y blanco (#fff) para tarjetas individuales.",
+      "Usar text-wrap balance en h1–h3.",
+      "Mantener 75 caracteres máximo por línea en cuerpo.",
+      "Usar transiciones de 0.2s (nunca 0.3s+) para feedback de hover/focus.",
+      "Usar sombras suaves (0.06–0.12 opacidad) con leve matiz cálido."
+    ],
+    "donts": [
+      "Usar fondos blancos fríos o fotos de stock genéricas. La crema (#f9f6f0) es el fondo por defecto.",
+      "Usar popups, banners ni notificaciones intrusivas. La experiencia debe ser amable y directa.",
+      "Usar tipografía decorativa para cuerpo o labels. Playfair es solo para display/headline.",
+      "Usar sombras duras ni opacidades >0.2 en sombras.",
+      "Usar glassmorphism, gradientes en texto, ni efectos decorativos que compitan con la comida.",
+      "Poner bordes laterales de color (stripe borders) en tarjetas. Preferir fondo tintado o nada.",
+      "Saturar la página con secciones numeradas, eyebrows en mayúsculas ni el template hero-metric."
+    ]
+  }
+}

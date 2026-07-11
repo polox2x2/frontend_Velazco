@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Dulcería y Pastelería Velazco</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/contactanos.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Velazco Logo">
+        </div>
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">
+                        <i data-lucide="home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#historia" class="nav-link">
+                        <i data-lucide="book-open"></i>
+                        <span>Historia</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#productos" class="nav-link">
+                        <i data-lucide="shopping-bag"></i>
+                        <span>Productos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="testimonios.html" class="nav-link">
+                        <i data-lucide="message-square"></i>
+                        <span>Testimonios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="Contactanos.html" class="nav-link active">
+                        <i data-lucide="phone"></i>
+                        <span>Contacto</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <a href="Contactanos.html" class="btn-contact">Contáctanos</a>
+        </header>
+
+        <section class="contact-container">
+            <!-- Contact Details -->
+            <div class="contact-info">
+                <h1>CONTACTO</h1>
+                <p>Estamos aquí para ayudarte. Contáctanos para cualquier consulta o emergencia.</p>
+
+                <div class="info-item">
+                    <i data-lucide="map-pin"></i>
+                    <span>Av. Grau N° 195-199, Cercado – Ica</span>
+                </div>
+                <div class="info-item">
+                    <i data-lucide="phone"></i>
+                    <span>983 422 019</span>
+                </div>
+                <div class="info-item">
+                    <i data-lucide="mail"></i>
+                    <span>velazco@dulceriapasteleriavelazco.com</span>
+                </div>
+                <div class="info-item">
+                    <i data-lucide="clock"></i>
+                    <span>Lunes a Domingo: 9:00 AM - 21:00 PM</span>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-wrapper">
+                <div class="form-banner">
+                    <h2>Contáctanos para Pedidos Personalizados</h2>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" class="form-control" placeholder="Nombres">
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido</label>
+                            <input type="text" id="apellido" class="form-control" placeholder="Apellidos (Opcional)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" placeholder="tu@email.com">
+                        <span class="error-msg" id="emailError">*Campo obligatorio</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="asunto">Asunto</label>
+                        <input type="text" id="asunto" class="form-control" placeholder="Asunto de tu mensaje">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mensaje">Mensaje</label>
+                        <textarea id="mensaje" class="form-control" placeholder="Escribe tu mensaje aquí..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-send">ENVIAR MENSAJE</button>
+                </form>
+            </div>
+        </section>
+
+        <footer class="contact-footer">
+            <p>© 2025 Dulceria Y Pasteleria VELAZCO. Todos los derechos reservados.</p>
+        </footer>
+    </main>
+
+    <!-- Modals -->
+    <div class="status-modal" id="successModal">
+        <div class="status-content">
+            <div class="status-icon success">
+                <i data-lucide="check"></i>
+            </div>
+            <h2>¡Mensaje Enviado!</h2>
+            <p>Gracias por tu interés. Nos pondremos en contacto contigo pronto.</p>
+        </div>
+    </div>
+
+    <div class="status-modal" id="errorModal">
+        <div class="status-content">
+            <div class="status-icon error">
+                <i data-lucide="x"></i>
+            </div>
+            <h2>¡Error!</h2>
+            <p>Ingrese los datos nuevamente para poder contactarnos contigo.</p>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        const form = document.getElementById('contactForm');
+        const successModal = document.getElementById('successModal');
+        const errorModal = document.getElementById('errorModal');
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Basic Validation Example (checking email)
+            if (!emailInput.value || !emailInput.value.includes('@')) {
+                emailInput.classList.add('error');
+                emailError.style.display = 'block';
+                showModal(errorModal);
+            } else {
+                emailInput.classList.remove('error');
+                emailError.style.display = 'none';
+                showModal(successModal);
+                form.reset();
+            }
+        });
+
+        function showModal(modal) {
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 3000);
+        }
+
+        // Close modals on click
+        [successModal, errorModal].forEach(modal => {
+            modal.addEventListener('click', () => {
+                modal.style.display = 'none';
+            });
+        });
+    </script>
+    
+    <!-- Chatbot Widget -->
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <link href="css/chat.css" rel="stylesheet" />
+    <script type="module" src="js/chatbot.js"></script>
+</body>
+
+</html>

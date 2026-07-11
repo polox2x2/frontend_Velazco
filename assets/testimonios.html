@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonios | Dulcería y Pastelería Velazco</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/testimonios.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <img src="img/logo.png" alt="Velazco Logo">
+        </div>
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="../index.html" class="nav-link">
+                        <i data-lucide="home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#historia" class="nav-link">
+                        <i data-lucide="book-open"></i>
+                        <span>Historia</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../index.html#productos" class="nav-link">
+                        <i data-lucide="shopping-bag"></i>
+                        <span>Productos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="testimonios.html" class="nav-link active">
+                        <i data-lucide="message-square"></i>
+                        <span>Testimonios</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="Contactanos.html" class="nav-link">
+                        <i data-lucide="phone"></i>
+                        <span>Contacto</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <a href="Contactanos.html" class="btn-contact">Contáctanos</a>
+        </header>
+
+        <!-- Testimonios Header -->
+        <section class="testimonios-header">
+            <h1>LO QUE DICEN NUESTROS CLIENTES</h1>
+            <a href="#" class="btn-new-testimonial" id="openModal">
+                <i data-lucide="plus"></i>
+                Nuevo Testimonio
+            </a>
+        </section>
+
+        <!-- Testimonios Grid -->
+        <section class="testimonial-grid">
+            <!-- Testimonio 1 -->
+            <div class="testimonial-card">
+                <p>“El mejor sabor de Ica, me recuerda a mi infancia. Siempre vuelvo por sus paciencias.”</p>
+                <div class="testimonial-handle">@Ana García</div>
+            </div>
+            <!-- Testimonio 2 -->
+            <div class="testimonial-card">
+                <p>“La torta que prepararon para mi boda fue perfecta, tanto en presentación como en sabor.”</p>
+                <div class="testimonial-handle">@Carlos Rodríguez</div>
+            </div>
+            <!-- Testimonio 3 -->
+            <div class="testimonial-card">
+                <p>“Tradición y calidad en un solo lugar, 100% recomendado.”</p>
+                <div class="testimonial-handle">@María López</div>
+            </div>
+            <!-- Testimonio 4 -->
+            <div class="testimonial-card">
+                <p>“Siempre que visito Ica paso por Velazco, sus dulces son un pedacito de historia en cada bocado.”</p>
+                <div class="testimonial-handle">@Ricardo T</div>
+            </div>
+            <!-- Testimonio 5 -->
+            <div class="testimonial-card">
+                <p>“La atención es rápida y cordial, y la calidad de sus postres se mantiene impecable a lo largo de los años.”</p>
+                <div class="testimonial-handle">@Fernanda L</div>
+            </div>
+            <!-- Testimonio 6 -->
+            <div class="testimonial-card">
+                <p>“Gracias a Velazco, nuestras celebraciones familiares siempre tienen un toque especial.”</p>
+                <div class="testimonial-handle">@Alejandro P</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Form -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-banner">
+                <h2>Agrega tu testimonio</h2>
+            </div>
+            <div class="modal-body">
+                <form id="testimonialForm">
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" class="form-control" placeholder="Tu nombre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonio">Testimonio</label>
+                        <textarea id="testimonio" class="form-control" placeholder="Escribe tu testimonio aquí..." required></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-cancel" id="closeModal">CANCELAR</button>
+                        <button type="submit" class="btn-submit">ENVIAR TESTIMONIO</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Modal Logic
+        const modal = document.getElementById('modalOverlay');
+        const openBtn = document.getElementById('openModal');
+        const closeBtn = document.getElementById('closeModal');
+
+        openBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = 'flex';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Form submission (mock)
+        document.getElementById('testimonialForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('¡Gracias por tu testimonio!');
+            modal.style.display = 'none';
+            e.target.reset();
+        });
+    </script>
+    
+    <!-- Chatbot Widget -->
+    <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+    <link href="css/chat.css" rel="stylesheet" />
+    <script type="module" src="js/chatbot.js"></script>
+</body>
+</html>

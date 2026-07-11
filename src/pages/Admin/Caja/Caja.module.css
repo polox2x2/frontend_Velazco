@@ -1,0 +1,277 @@
+.container {
+  display: flex;
+  gap: 1.5rem;
+  height: calc(100vh - 4rem);
+}
+.catalog {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0;
+}
+.searchInput {
+  padding: 0.6rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+}
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1rem;
+  overflow-y: auto;
+  padding-bottom: 2rem;
+}
+.productCard {
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 0.8rem;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.productCard:hover {
+  transform: translateY(-2px);
+  border-color: #f43f5e;
+}
+.productCardEmpty {
+  opacity: 0.6;
+  cursor: not-allowed;
+  filter: grayscale(100%);
+}
+.productCardEmpty:hover {
+  transform: none;
+  border-color: #eee;
+}
+.productImage {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+.stockBadgeWarning {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #f39c12;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.stockBadgeEmpty {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #e74c3c;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.productName {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #333;
+  margin-bottom: 0.3rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.4em;
+}
+.productPrice {
+  color: #f43f5e;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.ticket {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.ticketHeader {
+  padding: 1rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #eee;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+.ticketClient {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+.clientInputGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f8f9fa;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+.clientInput {
+  border: none;
+  background: transparent;
+  width: 100%;
+  font-size: 0.95rem;
+  outline: none;
+  font-weight: 600;
+  color: #333;
+}
+.ticketBody {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+.emptyCart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #aaa;
+  font-weight: 500;
+  gap: 1rem;
+}
+.cartItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed #eee;
+}
+.cartItemInfo {
+  flex: 1;
+}
+.cartItemName {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.2rem;
+  font-size: 0.95rem;
+}
+.cartItemPrice {
+  color: #888;
+  font-size: 0.85rem;
+}
+.cartItemControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.qtyBtn {
+  background: #f0f0f0;
+  border: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #333;
+}
+.qtyBtn:hover {
+  background: #e0e0e0;
+}
+.qtyValue {
+  font-weight: 700;
+  width: 20px;
+  text-align: center;
+}
+.delBtn {
+  background: transparent;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  padding: 0.2rem;
+  margin-left: 0.5rem;
+  border-radius: 4px;
+}
+.delBtn:hover {
+  background: #fee2e2;
+}
+
+.ticketFooter {
+  padding: 1rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #fafafa;
+}
+.paymentSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.paymentSection label {
+  font-weight: 600;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.paymentSelect {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+}
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #333;
+}
+.btnPay {
+  background: #f43f5e;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btnPay:hover {
+  background: #e11d48;
+}
+.btnPay:disabled {
+  background: #fecdd3;
+  cursor: not-allowed;
+}
