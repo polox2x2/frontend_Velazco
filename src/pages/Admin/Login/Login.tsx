@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '../../../services/api';
+import { useAuth } from '../../../contexts/AuthContext';
 import styles from './Login.module.css';
 
 export default function Login() {
@@ -9,6 +10,7 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,11 +18,22 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const response = await authApi.login({ email, password });
-      if (response.token) {
-        localStorage.setItem('token', response.token);
-        // Redirect to dashboard
-        navigate('/admin/dashboard');
+      const response = await authApi.login({ email, password }) as any;
+      if (response.token && response.user) {
+        login(response.token, response.user);
+        
+        // Redirect depending on role
+        if (response.user.rol === 'Cajero') {
+          navigate('/admin/caja');
+        } else if (response.user.rol === 'Entregas') {
+          navigate('/admin/entregas');
+        } else if (response.user.rol === 'Producción') {
+          navigate('/admin/produccion');
+        } else if (response.user.rol === 'Cliente') {
+          navigate('/'); // Si un cliente intenta entrar al admin, se va al home
+        } else {
+          navigate('/admin/dashboard'); // Administrador y Vendedor van al dashboard
+        }
       }
     } catch (err: any) {
       console.error(err);

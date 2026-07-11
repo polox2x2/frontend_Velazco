@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { authApi } from '../../services/api';
+import { useNavigate } from 'react-router-dom';
 import styles from './AuthModal.module.css';
 
 interface AuthModalProps {
@@ -22,6 +23,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
   const [loading, setLoading] = useState(false);
   
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   if (!isOpen) return null;
 
@@ -49,12 +51,18 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
         if (response.token && response.user) {
           login(response.token, response.user);
           onClose();
+          if (response.user.rol !== 'Cliente') {
+            navigate('/admin/dashboard');
+          }
         }
       } else {
         const response = await authApi.clientRegister({ nombreCompleto, email, telefono, password }) as any;
         if (response.token && response.user) {
           login(response.token, response.user);
           onClose();
+          if (response.user.rol !== 'Cliente') {
+            navigate('/admin/dashboard');
+          }
         }
       }
     } catch (err: any) {
