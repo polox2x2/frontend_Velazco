@@ -23,7 +23,7 @@ export default function AdminSidebar() {
       console.error('Logout error', error);
     } finally {
       localStorage.removeItem('token');
-      navigate('/admin/login');
+      navigate('/');
     }
   };
 

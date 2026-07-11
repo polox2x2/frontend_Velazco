@@ -7,7 +7,6 @@ import Tienda from '../pages/Tienda/Tienda'
 import Testimonios from '../pages/Testimonios/Testimonios'
 import Contacto from '../pages/Contacto/Contacto'
 import Checkout from '../pages/Checkout/Checkout'
-import Login from '../pages/Admin/Login/Login'
 import Dashboard from '../pages/Admin/Dashboard/Dashboard'
 import Inventario from '../pages/Admin/Inventario/Inventario'
 import Pedidos from '../pages/Admin/Pedidos/Pedidos'
@@ -29,9 +28,6 @@ function AppRouter() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/checkout/:status" element={<Checkout />} />
       </Route>
-
-      {/* Admin Login Route */}
-      <Route path="/admin/login" element={<Login />} />
 
       {/* Protected Admin Routes */}
       <Route path="/admin" element={<ProtectedRoute />}>
