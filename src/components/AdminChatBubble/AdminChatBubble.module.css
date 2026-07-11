@@ -326,3 +326,22 @@
   cursor: not-allowed;
   transform: none;
 }
+
+@media (max-width: 768px) {
+  .chatBubbleContainer {
+    bottom: 1rem;
+    right: 1rem;
+    left: 1rem;
+  }
+  .chatWindow {
+    width: 100%;
+    height: calc(100vh - 120px);
+    max-height: 600px;
+    margin-bottom: 1rem;
+    border-radius: 16px;
+  }
+  .bubbleButton {
+    width: 56px;
+    height: 56px;
+  }
+}
