@@ -11,7 +11,8 @@ export async function enviarFormulario(
 ): Promise<{ exito: boolean }> {
   console.log('[Contacto API] Datos listos para enviar:', data)
 
-  const res = await fetch('http://localhost:8080/api/public/contacto', {
+  const baseUrl = import.meta.env.VITE_API_URL || 'https://backendvelazco-production.up.railway.app/api';
+  const res = await fetch(`${baseUrl}/public/contacto`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),

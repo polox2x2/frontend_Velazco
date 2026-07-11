@@ -45,10 +45,14 @@ export default function Caja() {
   }, []);
 
   const getImageUrl = (imageName: string) => {
+    const baseUrl = import.meta.env.VITE_API_URL 
+      ? import.meta.env.VITE_API_URL.replace('/api', '') 
+      : 'https://backendvelazco-production.up.railway.app';
+
     if (!imageName) return '/img/hero-products.png';
     if (imageName.startsWith('http')) return imageName;
-    if (imageName.startsWith('/storage/')) return `http://localhost:8080${imageName}`;
-    return `http://localhost:8080/storage/${encodeURIComponent(imageName)}`;
+    if (imageName.startsWith('/storage/')) return `${baseUrl}${imageName}`;
+    return `${baseUrl}/storage/${encodeURIComponent(imageName)}`;
   };
 
   const filteredProducts = products.filter(p => 
