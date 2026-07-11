@@ -2,13 +2,18 @@
   display: flex;
   min-height: 100vh;
   background-color: #f8f9fa; /* Global dashboard background */
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .mainContent {
   flex: 1;
   padding: 2rem 2.5rem;
   overflow-y: auto;
+  overflow-x: hidden;
   max-height: 100vh;
+  min-width: 0;
 }
 
 @media (max-width: 768px) {

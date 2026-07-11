@@ -246,6 +246,37 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
+@media (max-width: 768px) {
+  .reportesContainer {
+    padding: 1rem;
+    border-radius: 0;
+    margin: 0 -1rem; /* Negative margin to counteract AdminLayout padding */
+    width: calc(100% + 2rem);
+    border-left: none;
+    border-right: none;
+  }
+  .reportesHeader {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  .reportesActions {
+    justify-content: center;
+    width: 100%;
+  }
+  .dateFilters {
+    flex-direction: column;
+    width: 100%;
+  }
+  .dateFilters div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+}
+
 .reportesHeader h2 {
   font-size: 1.25rem;
   font-weight: 700;
@@ -377,6 +408,8 @@
 
 .tableWrapper {
   overflow-x: auto;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .table {
