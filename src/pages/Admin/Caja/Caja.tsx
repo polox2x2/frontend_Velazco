@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ShoppingCart, Plus, Minus, Trash2, CreditCard, User } from 'lucide-react';
 import { adminApi } from '../../../services/api';
+import { getImageUrl } from '../../../utils/image';
 import styles from './Caja.module.css';
 import Swal from 'sweetalert2';
 
@@ -43,17 +44,6 @@ export default function Caja() {
   useEffect(() => {
     fetchProducts();
   }, []);
-
-  const getImageUrl = (imageName: string) => {
-    const baseUrl = import.meta.env.VITE_API_URL 
-      ? import.meta.env.VITE_API_URL.replace('/api', '') 
-      : 'https://backendvelazco-production.up.railway.app';
-
-    if (!imageName) return '/img/hero-products.png';
-    if (imageName.startsWith('http')) return imageName;
-    if (imageName.startsWith('/storage/')) return `${baseUrl}${imageName}`;
-    return `${baseUrl}/storage/${encodeURIComponent(imageName)}`;
-  };
 
   const filteredProducts = products.filter(p => 
     p.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -288,7 +278,7 @@ export default function Caja() {
               >
                 <div 
                   className={styles.productImage}
-                  style={{ backgroundImage: `url(${getImageUrl(prod.image)})` }}
+                  style={{ backgroundImage: `url('${getImageUrl(prod.image)}')` }}
                 >
                   {prod.stock <= 5 && prod.stock > 0 && <span className={styles.stockBadgeWarning}>{prod.stock} left</span>}
                   {prod.stock <= 0 && <span className={styles.stockBadgeEmpty}>Agotado</span>}
