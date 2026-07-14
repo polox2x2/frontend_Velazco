@@ -1,6 +1,7 @@
 import type { CartItem } from '../../interfaces/CartItem'
 import { useCart } from '../../contexts/CartContext'
 import styles from './CartItemRow.module.css'
+import { getImageUrl } from '../../utils/image'
 
 interface CartItemRowProps {
   item: CartItem
@@ -13,7 +14,7 @@ function CartItemRow({ item }: CartItemRowProps) {
   return (
     <div className={styles.row}>
       <img
-        src={producto.imagen}
+        src={getImageUrl(producto.imagen)}
         alt={producto.nombre}
         className={styles.image}
         onError={(e) => { e.currentTarget.src = '/img/hero-products.png'; }}

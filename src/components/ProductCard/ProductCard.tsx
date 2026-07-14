@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react'
 import type { Producto } from '../../interfaces/Producto'
 import { useCart } from '../../contexts/CartContext'
 import styles from './ProductCard.module.css'
+import { getImageUrl } from '../../utils/image'
 
 interface ProductCardProps {
   producto: Producto
@@ -35,7 +36,7 @@ function ProductCard({ producto, simple = false }: ProductCardProps) {
           className={`${styles.imageWrapper} ${!simple ? styles.clickable : ''}`}
           onClick={() => !simple && setModalAbierto(true)}
         >
-          <img src={producto.imagen} alt={producto.nombre} onError={(e) => { e.currentTarget.src = '/img/hero-products.png'; }} />
+          <img src={getImageUrl(producto.imagen)} alt={producto.nombre} onError={(e) => { e.currentTarget.src = '/img/hero-products.png'; }} />
         </div>
         <div className={`${styles.info} ${simple ? styles.infoSimple : ''}`}>
           <h3 className={styles.name}>{producto.nombre}</h3>
@@ -75,9 +76,10 @@ function ProductCard({ producto, simple = false }: ProductCardProps) {
             </button>
 
             <img
-              src={producto.imagen}
+              src={getImageUrl(producto.imagen)}
               alt={producto.nombre}
               className={styles.modalImage}
+              onError={(e) => { e.currentTarget.src = '/img/hero-products.png'; }}
             />
 
             <div className={styles.modalBody}>

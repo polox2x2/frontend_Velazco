@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { adminApi, publicApi } from '../../../services/api';
 import styles from './Inventario.module.css';
 import Swal from 'sweetalert2';
+import { getImageUrl } from '../../../utils/image';
 
 interface ProductAdmin {
   id: number;
@@ -58,16 +59,6 @@ export default function Inventario() {
     fetchData();
   }, []);
 
-  const getImageUrl = (imageName: string) => {
-    const baseUrl = import.meta.env.VITE_API_URL 
-      ? import.meta.env.VITE_API_URL.replace('/api', '') 
-      : 'https://backendvelazco-production.up.railway.app';
-
-    if (!imageName) return '/img/hero-products.png';
-    if (imageName.startsWith('http')) return imageName;
-    if (imageName.startsWith('/storage/')) return `${baseUrl}${imageName}`;
-    return `${baseUrl}/storage/${encodeURIComponent(imageName)}`;
-  };
 
   const handleOpenModal = (product?: ProductAdmin) => {
     if (product) {

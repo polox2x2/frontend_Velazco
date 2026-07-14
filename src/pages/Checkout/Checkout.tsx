@@ -6,6 +6,7 @@ import { paymentRegistry } from '../../services/payment'
 import DeliveryMap from '../../components/DeliveryMap/DeliveryMap'
 import { publicApi } from '../../services/api'
 import styles from './Checkout.module.css'
+import { getImageUrl } from '../../utils/image'
 
 interface MetodoPago {
   id: string
@@ -206,7 +207,7 @@ function Checkout() {
           <div className={styles.itemsList}>
             {items.map((item) => (
               <div key={item.producto.id} className={styles.itemRow}>
-                <img src={item.producto.imagen} alt={item.producto.nombre} className={styles.itemImg} onError={(e) => { e.currentTarget.src = '/img/hero-products.png'; }} />
+                <img src={getImageUrl(item.producto.imagen)} alt={item.producto.nombre} className={styles.itemImg} onError={(e) => { e.currentTarget.src = '/img/hero-products.png'; }} />
                 <div className={styles.itemInfo}>
                   <p className={styles.itemName}>{item.producto.nombre}</p>
                   <p className={styles.itemQty}>x{item.cantidad}</p>
