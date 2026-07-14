@@ -134,6 +134,34 @@
   font-size: 1rem;
 }
 
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordWrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.passwordToggleBtn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #666;
+  padding: 0;
+}
+
+.passwordToggleBtn:hover {
+  color: #333;
+}
+
 .modalActions {
   display: flex;
   justify-content: flex-end;

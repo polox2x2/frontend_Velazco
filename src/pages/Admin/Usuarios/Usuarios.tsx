@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { UserPlus, Edit2, Trash2 } from 'lucide-react';
+import { UserPlus, Edit2, Trash2, Eye, EyeOff } from 'lucide-react';
 import styles from './Usuarios.module.css';
 import { adminApi } from '../../../services/api';
 
@@ -24,6 +24,7 @@ export default function Usuarios() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<'create' | 'edit'>('create');
+  const [showPassword, setShowPassword] = useState(false);
   
   const [formData, setFormData] = useState({
     id: 0,
@@ -53,6 +54,7 @@ export default function Usuarios() {
   const openCreateModal = () => {
     setModalMode('create');
     setFormData({ id: 0, name: '', email: '', password: '', role: 'Cajero' });
+    setShowPassword(false);
     setIsModalOpen(true);
   };
 
@@ -65,6 +67,7 @@ export default function Usuarios() {
       password: '', 
       role: user.role || 'Cajero' 
     });
+    setShowPassword(false);
     setIsModalOpen(true);
   };
 
@@ -188,12 +191,22 @@ export default function Usuarios() {
               </div>
               <div className={styles.formGroup}>
                 <label>Contraseña {modalMode === 'edit' && <small>(dejar en blanco para mantener actual)</small>}</label>
-                <input 
-                  type="password" 
-                  required={modalMode === 'create'}
-                  value={formData.password} 
-                  onChange={e => setFormData({...formData, password: e.target.value})}
-                />
+                <div className={styles.passwordWrapper}>
+                  <input 
+                    type={showPassword ? "text" : "password"} 
+                    required={modalMode === 'create'}
+                    value={formData.password} 
+                    onChange={e => setFormData({...formData, password: e.target.value})}
+                  />
+                  <button 
+                    type="button" 
+                    className={styles.passwordToggleBtn} 
+                    onClick={() => setShowPassword(!showPassword)}
+                    title={showPassword ? "Ocultar contraseña" : "Ver contraseña"}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>
               </div>
               <div className={styles.formGroup}>
                 <label>Rol</label>

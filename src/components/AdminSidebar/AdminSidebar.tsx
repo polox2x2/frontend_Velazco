@@ -7,13 +7,20 @@ import {
   Truck, 
   ChefHat,
   Users,
-  LogOut
+  LogOut,
+  Moon,
+  Sun
 } from 'lucide-react';
 import styles from './AdminSidebar.module.css';
 import { authApi } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 
-export default function AdminSidebar() {
+interface AdminSidebarProps {
+  isDarkMode?: boolean;
+  toggleDarkMode?: () => void;
+}
+
+export default function AdminSidebar({ isDarkMode, toggleDarkMode }: AdminSidebarProps) {
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -62,6 +69,12 @@ export default function AdminSidebar() {
       </nav>
 
       <div className={styles.footer}>
+        {toggleDarkMode && (
+          <button className={styles.darkModeToggle} onClick={toggleDarkMode}>
+            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            <span>{isDarkMode ? 'Modo Claro' : 'Modo Oscuro'}</span>
+          </button>
+        )}
         <button className={styles.logoutBtn} onClick={handleLogout}>
           <LogOut size={20} />
           <span>Cerrar Sesión</span>

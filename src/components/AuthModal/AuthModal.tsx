@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { authApi } from '../../services/api';
 import { useNavigate } from 'react-router-dom';
+import { Eye, EyeOff } from 'lucide-react';
 import styles from './AuthModal.module.css';
 
 interface AuthModalProps {
@@ -21,6 +22,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
   // UI state
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -148,15 +150,25 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           
           <div className={styles.formGroup}>
             <label className={styles.label}>Contraseña</label>
-            <input 
-              type="password" 
-              className={styles.input} 
-              placeholder={isLogin ? '********' : 'Mínimo 6 caracteres'}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={isLogin ? undefined : 6}
-            />
+            <div className={styles.passwordWrapper}>
+              <input 
+                type={showPassword ? "text" : "password"} 
+                className={styles.input} 
+                placeholder={isLogin ? '********' : 'Mínimo 6 caracteres'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                minLength={isLogin ? undefined : 6}
+              />
+              <button 
+                type="button" 
+                className={styles.passwordToggleBtn} 
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? "Ocultar contraseña" : "Ver contraseña"}
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+            </div>
           </div>
 
           <button type="submit" className={styles.btnPrimary} disabled={loading}>

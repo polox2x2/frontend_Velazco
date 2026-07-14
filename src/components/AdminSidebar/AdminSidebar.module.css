@@ -118,6 +118,28 @@
   color: #e74c3c;
 }
 
+.darkModeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.85rem;
+  background: #e2e8f0;
+  color: #334155;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.darkModeToggle:hover {
+  background: #cbd5e1;
+}
+
 .logoutBtn {
   display: flex;
   align-items: center;
