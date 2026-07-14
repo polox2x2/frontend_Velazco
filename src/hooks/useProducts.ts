@@ -14,15 +14,13 @@ export const useProducts = () => {
         const data = await publicApi.getProducts();
         
         // Map backend DTO to frontend Producto interface
-        const baseUrl = import.meta.env.VITE_API_URL 
-          ? import.meta.env.VITE_API_URL.replace('/api', '') 
-          : 'https://backendvelazco-production.up.railway.app';
+        // Base URL logic is now handled globally in getImageUrl
 
         const mappedProducts: Producto[] = data.map((item: any) => ({
           id: item.id,
           nombre: item.name,
           // Handle backend image storage. Might need full URL depending on how it's served.
-          imagen: item.image ? (item.image.startsWith('http') ? item.image : (item.image.startsWith('/storage/') ? `${baseUrl}${item.image}` : `${baseUrl}/storage/${encodeURIComponent(item.image)}`)) : '/img/hero-products.png', 
+          imagen: item.image,
           descripcion: 'Delicioso producto de Panadería Velazco', // Mock description as backend doesn't have it
           precio: item.price,
           categoria: item.category?.name || 'Otros',

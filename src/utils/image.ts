@@ -8,7 +8,12 @@ export const getImageUrl = (path: string | undefined | null) => {
   const baseUrl = apiUrl.replace(/\/api\/?$/, '');
     
   if (path.startsWith('/storage/')) {
-    return `${baseUrl}${path}`;
+    const filename = path.substring(9);
+    return `${baseUrl}/storage/${encodeURIComponent(filename)}`;
+  }
+  
+  if (path.startsWith('/img/')) {
+    return path;
   }
   
   if (path.startsWith('/')) {
