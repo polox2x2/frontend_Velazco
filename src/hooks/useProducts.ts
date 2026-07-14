@@ -27,6 +27,7 @@ export const useProducts = () => {
           ingredientes: 'Ingredientes secretos de la abuela', // Mock ingredients
         }));
 
+        console.log('Mapped Products:', mappedProducts.map(p => ({ id: p.id, nombre: p.nombre, imagen: p.imagen })));
         setProductos(mappedProducts);
       } catch (err: any) {
         console.error('Error fetching products:', err);

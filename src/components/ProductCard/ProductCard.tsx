@@ -36,7 +36,16 @@ function ProductCard({ producto, simple = false }: ProductCardProps) {
           className={`${styles.imageWrapper} ${!simple ? styles.clickable : ''}`}
           onClick={() => !simple && setModalAbierto(true)}
         >
-          <img src={getImageUrl(producto.imagen)} alt={producto.nombre} onError={(e) => { e.currentTarget.src = '/img/hero-products.png'; }} />
+          <img 
+            src={getImageUrl(producto.imagen)} 
+            alt={producto.nombre} 
+            onError={(e) => { 
+              if (!e.currentTarget.src.includes('hero-products.png')) {
+                console.error('Failed to load image:', e.currentTarget.src);
+                e.currentTarget.src = '/img/hero-products.png'; 
+              }
+            }} 
+          />
         </div>
         <div className={`${styles.info} ${simple ? styles.infoSimple : ''}`}>
           <h3 className={styles.name}>{producto.nombre}</h3>
@@ -79,7 +88,11 @@ function ProductCard({ producto, simple = false }: ProductCardProps) {
               src={getImageUrl(producto.imagen)}
               alt={producto.nombre}
               className={styles.modalImage}
-              onError={(e) => { e.currentTarget.src = '/img/hero-products.png'; }}
+              onError={(e) => { 
+                if (!e.currentTarget.src.includes('hero-products.png')) {
+                  e.currentTarget.src = '/img/hero-products.png'; 
+                }
+              }}
             />
 
             <div className={styles.modalBody}>
