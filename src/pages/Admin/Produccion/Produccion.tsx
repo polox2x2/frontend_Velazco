@@ -88,7 +88,7 @@ export default function Produccion() {
 
     try {
       const payload = {
-        details: details.map((d: any) => ({
+        productos: details.map((d: any) => ({
           productId: d.product.id,
           producedQuantity: d.requestedQuantity
         }))
