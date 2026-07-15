@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Bell, User, ShoppingBag, AlertTriangle, DollarSign, Download, Calendar, FileText, TrendingUp, CreditCard } from 'lucide-react';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, 
   PieChart, Pie, Cell, Legend
@@ -172,7 +172,7 @@ export default function Dashboard() {
       tableRows.push(orderData);
     });
 
-    (doc as any).autoTable({
+    autoTable(doc, {
       head: [tableColumn],
       body: tableRows,
       startY: 75,
