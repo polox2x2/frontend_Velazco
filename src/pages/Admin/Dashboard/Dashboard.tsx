@@ -87,8 +87,8 @@ export default function Dashboard() {
   const exportToCSV = () => {
     if (filteredReports.length === 0) return;
     
-    // Add BOM for Excel UTF-8 support to correctly display accents
-    let csv = '\uFEFFID Pedido,Cliente,Fecha Orden,Fecha Entrega,Total (S/.),Metodo Pago,Repartidor\n';
+    // Add BOM for Excel UTF-8 support and use semicolon for column division
+    let csv = '\uFEFFID Pedido;Cliente;Fecha Orden;Fecha Entrega;Total (S/.);Metodo Pago;Repartidor\n';
     
     filteredReports.forEach(order => {
       const total = order.details ? order.details.reduce((sum: number, d: any) => sum + (d.unitPrice * d.quantity), 0) : 0;
@@ -97,11 +97,12 @@ export default function Dashboard() {
       const clientName = `"${(order.clientName || '').replace(/"/g, '""')}"`;
       const date = `"${new Date(order.date).toLocaleString()}"`;
       const deliveryDate = `"${order.deliveryDate ? new Date(order.deliveryDate).toLocaleString() : ''}"`;
-      const totalStr = `"${total.toFixed(2)}"`;
+      // Convert to string and replace period with comma for decimals if Excel expects it, though string is usually fine.
+      const totalStr = `"${total.toFixed(2).replace('.', ',')}"`;
       const paymentMethod = `"${(order.paymentMethod || 'N/A').replace(/"/g, '""')}"`;
       const deliveredBy = `"${(order.deliveredBy?.name || 'N/A').replace(/"/g, '""')}"`;
 
-      csv += `${id},${clientName},${date},${deliveryDate},${totalStr},${paymentMethod},${deliveredBy}\n`;
+      csv += `${id};${clientName};${date};${deliveryDate};${totalStr};${paymentMethod};${deliveredBy}\n`;
     });
 
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
