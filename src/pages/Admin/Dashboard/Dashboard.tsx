@@ -87,11 +87,21 @@ export default function Dashboard() {
   const exportToCSV = () => {
     if (filteredReports.length === 0) return;
     
-    let csv = 'ID Pedido,Cliente,Fecha Orden,Fecha Entrega,Total (S/.),Metodo Pago,Repartidor\n';
+    // Add BOM for Excel UTF-8 support to correctly display accents
+    let csv = '\uFEFFID Pedido,Cliente,Fecha Orden,Fecha Entrega,Total (S/.),Metodo Pago,Repartidor\n';
     
     filteredReports.forEach(order => {
       const total = order.details ? order.details.reduce((sum: number, d: any) => sum + (d.unitPrice * d.quantity), 0) : 0;
-      csv += `${order.id},${order.clientName},${new Date(order.date).toLocaleString()},${order.deliveryDate ? new Date(order.deliveryDate).toLocaleString() : ''},${total.toFixed(2)},${order.paymentMethod || 'N/A'},${order.deliveredBy?.name || 'N/A'}\n`;
+      
+      const id = `"${order.id}"`;
+      const clientName = `"${(order.clientName || '').replace(/"/g, '""')}"`;
+      const date = `"${new Date(order.date).toLocaleString()}"`;
+      const deliveryDate = `"${order.deliveryDate ? new Date(order.deliveryDate).toLocaleString() : ''}"`;
+      const totalStr = `"${total.toFixed(2)}"`;
+      const paymentMethod = `"${(order.paymentMethod || 'N/A').replace(/"/g, '""')}"`;
+      const deliveredBy = `"${(order.deliveredBy?.name || 'N/A').replace(/"/g, '""')}"`;
+
+      csv += `${id},${clientName},${date},${deliveryDate},${totalStr},${paymentMethod},${deliveredBy}\n`;
     });
 
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -107,30 +117,45 @@ export default function Dashboard() {
   const exportToPDF = () => {
     if (filteredReports.length === 0) return;
     
-    const doc = new jsPDF();
+    const doc = new jsPDF('landscape');
     
-    // Title
-    doc.setFontSize(20);
-    doc.text('Reporte de Ventas Completadas', 14, 22);
+    // Title & Header
+    doc.setFontSize(24);
+    doc.setTextColor(41, 128, 185);
+    doc.text('Velazco - Reporte de Ventas', 14, 22);
     
     // Date Range
     doc.setFontSize(11);
     doc.setTextColor(100);
-    doc.text(`Desde: ${startDate}  Hasta: ${endDate}`, 14, 30);
+    doc.text(`Periodo: ${startDate} al ${endDate}`, 14, 30);
+    doc.text(`Generado: ${new Date().toLocaleString()}`, 14, 36);
     
-    // KPIs
+    // KPIs Background
     doc.setDrawColor(200);
-    doc.setFillColor(250, 250, 250);
-    doc.roundedRect(14, 35, 180, 25, 3, 3, 'FD');
+    doc.setFillColor(245, 247, 250);
+    doc.roundedRect(14, 42, 269, 25, 3, 3, 'FD');
     
+    // KPIs Data
     doc.setFontSize(12);
-    doc.setTextColor(0);
-    doc.text(`Ingresos Totales: S/. ${kpis.total.toFixed(2)}`, 20, 45);
-    doc.text(`Pedidos: ${kpis.count}`, 90, 45);
-    doc.text(`Ticket Prom.: S/. ${kpis.avg.toFixed(2)}`, 140, 45);
+    doc.setTextColor(50);
+    doc.text(`Ingresos Totales:`, 20, 52);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`S/. ${kpis.total.toFixed(2)}`, 20, 60);
+    
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Total de Pedidos:`, 110, 52);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${kpis.count}`, 110, 60);
+    
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Ticket Promedio:`, 200, 52);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`S/. ${kpis.avg.toFixed(2)}`, 200, 60);
+    
+    doc.setFont('helvetica', 'normal');
 
     // Table
-    const tableColumn = ["ID", "Cliente", "Fecha", "Método Pago", "Total"];
+    const tableColumn = ["ID", "Cliente", "Fecha Orden", "Fecha Entrega", "Método Pago", "Repartidor", "Total"];
     const tableRows: any[] = [];
 
     filteredReports.forEach(order => {
@@ -138,8 +163,10 @@ export default function Dashboard() {
       const orderData = [
         `#${order.id}`,
         order.clientName,
-        new Date(order.date).toLocaleDateString(),
+        new Date(order.date).toLocaleString(),
+        order.deliveryDate ? new Date(order.deliveryDate).toLocaleString() : '-',
         order.paymentMethod || 'N/A',
+        order.deliveredBy?.name || 'N/A',
         `S/. ${total.toFixed(2)}`
       ];
       tableRows.push(orderData);
@@ -148,10 +175,28 @@ export default function Dashboard() {
     (doc as any).autoTable({
       head: [tableColumn],
       body: tableRows,
-      startY: 65,
-      theme: 'grid',
-      styles: { fontSize: 9, cellPadding: 3 },
-      headStyles: { fillColor: [41, 128, 185], textColor: 255 }
+      startY: 75,
+      theme: 'striped',
+      styles: { fontSize: 10, cellPadding: 4, halign: 'center' },
+      headStyles: { fillColor: [41, 128, 185], textColor: 255, fontStyle: 'bold', halign: 'center' },
+      columnStyles: {
+        0: { halign: 'center', cellWidth: 20 },
+        1: { halign: 'left', cellWidth: 50 },
+        2: { halign: 'center', cellWidth: 40 },
+        3: { halign: 'center', cellWidth: 40 },
+        4: { halign: 'center', cellWidth: 35 },
+        5: { halign: 'left', cellWidth: 45 },
+        6: { halign: 'right', fontStyle: 'bold', cellWidth: 35 }
+      },
+      alternateRowStyles: { fillColor: [245, 247, 250] },
+      margin: { top: 75, left: 14, right: 14 },
+      didDrawPage: function (data: any) {
+        const str = 'Página ' + ((doc as any).internal.getNumberOfPages ? (doc as any).internal.getNumberOfPages() : '');
+        doc.setFontSize(10);
+        const pageSize = doc.internal.pageSize;
+        const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+        doc.text(str, data.settings.margin.left, pageHeight - 10);
+      }
     });
 
     doc.save(`reporte_ventas_${startDate}_al_${endDate}.pdf`);
