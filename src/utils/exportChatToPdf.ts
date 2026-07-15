@@ -139,8 +139,11 @@ export const exportChatToPdf = (text: string) => {
         doc.setFont('helvetica', 'normal');
         doc.setTextColor(71, 85, 105);
         const splitText = doc.splitTextToSize(cleanLine, 180);
-        doc.text(splitText, 14, y);
-        y += splitText.length * 6 + 2;
+        for (let j = 0; j < splitText.length; j++) {
+          doc.text(splitText[j], 14, y);
+          y += 6;
+        }
+        y += 2;
       } else {
         // empty line
         y += 4;
