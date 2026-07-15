@@ -153,7 +153,7 @@ export const adminApi = {
     return response.data;
   },
   updateProductionStatus: async (id: number, status: string) => {
-    const response = await api.patch(`/productions/${id}/status`, { status });
+    const response = await api.patch(`/productions/${id}/status`, { nuevoEstado: status });
     return response.data;
   },
   finalizeProduction: async (id: number, data: any) => {
