@@ -161,7 +161,7 @@ export const adminApi = {
     return response.data;
   },
 
-  // --- DASHBOARD ANALYTICS ---
+  // --- ANALÍTICAS DEL DASHBOARD ---
   getDailySales: async () => {
     const response = await api.get('/orders/daily-sales/details');
     return response.data;
@@ -179,7 +179,7 @@ export const adminApi = {
     return response.data;
   },
   
-  // --- AI ASSISTANT ---
+  // --- ASISTENTE DE IA ---
   askAi: async (prompt: string) => {
     const response = await api.post('/v1/ai/generate', { prompt });
     return response.data;

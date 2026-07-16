@@ -18,7 +18,7 @@ import Usuarios from '../pages/Admin/Usuarios/Usuarios'
 function AppRouter() {
   return (
     <Routes>
-      {/* Public Store Routes */}
+      {/* Rutas públicas de la tienda */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/tienda" element={<Tienda />} />
@@ -28,7 +28,7 @@ function AppRouter() {
         <Route path="/checkout/:status" element={<Checkout />} />
       </Route>
 
-      {/* Protected Admin Routes */}
+      {/* Rutas protegidas de administrador */}
       <Route path="/admin" element={<ProtectedRoute />}>
         <Route element={<AdminLayout />}>
           <Route index element={<Navigate to="dashboard" replace />} />

@@ -86,7 +86,7 @@ function Checkout() {
         const orderId = parseInt(orderIdStr, 10);
         publicApi.validatePayment(orderId, paymentId)
           .then(() => {
-            // Payment validated successfully
+            // Pago validado exitosamente
           })
           .catch(err => {
             console.error('Error validating payment', err);
@@ -140,7 +140,7 @@ function Checkout() {
           const resultado = await gateways[0].procesarPago(total, 'PEN', items, orderResponse.id)
           if (resultado.exito && resultado.urlRedireccion) {
             window.location.href = resultado.urlRedireccion;
-            return; // Stop execution, user is redirecting
+            return; // Detener ejecución, usuario redireccionando
           }
         }
       }
@@ -253,7 +253,7 @@ function Checkout() {
         </div>
 
         <div className={styles.right}>
-          {/* Section 1 - Contact & Delivery */}
+          {/* Sección 1 - Contacto y Entrega */}
           <div className={styles.section}>
             <h3 className={styles.sectionTitle}>Contacto y entrega</h3>
 
@@ -340,7 +340,7 @@ function Checkout() {
             )}
           </div>
 
-          {/* Section 2 - Payment Method */}
+          {/* Sección 2 - Método de Pago */}
           <div className={styles.section}>
             <h3 className={styles.sectionTitle}>Medio de pago</h3>
 
@@ -386,7 +386,7 @@ function Checkout() {
             )}
           </div>
 
-          {/* Section 3 - Payment Confirmation */}
+          {/* Sección 3 - Confirmación de Pago */}
           <div className={styles.section}>
             {errorMsg && (
               <div className={styles.errorBanner}>

@@ -141,7 +141,6 @@
   min-height: 250px;
 }
 
-/* Horizontal Bar overrides */
 .horizontalBarsContainer {
   display: flex;
   flex-direction: column;
@@ -173,12 +172,11 @@
 
 .hBarFill {
   height: 100%;
-  background-color: #8b5cf6; /* Violet */
+  background-color: #8b5cf6;
   border-radius: 4px;
   transition: width 0.5s ease;
 }
 
-/* Low Stock List overrides */
 .lowStockList {
   display: flex;
   flex-direction: column;
@@ -226,7 +224,6 @@
   }
 }
 
-/* Reportes View Styles */
 .reportesContainer {
   display: flex;
   flex-direction: column;
@@ -250,7 +247,7 @@
   .reportesContainer {
     padding: 1rem;
     border-radius: 0;
-    margin: 0 -1rem; /* Negative margin to counteract AdminLayout padding */
+    margin: 0 -1rem;
     width: calc(100% + 2rem);
     border-left: none;
     border-right: none;
@@ -347,7 +344,6 @@
   cursor: not-allowed;
 }
 
-/* KPI Cards for Reportes */
 .kpiGrid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

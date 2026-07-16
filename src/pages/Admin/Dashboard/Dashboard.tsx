@@ -15,7 +15,6 @@ export default function Dashboard() {
   const [activeTab, setActiveTab] = useState('general');
   const [loading, setLoading] = useState(true);
 
-  // States for data
   const [dailySalesTotal, setDailySalesTotal] = useState(0);
   const [dailyOrdersCount, setDailyOrdersCount] = useState(0);
   const [weeklySalesData, setWeeklySalesData] = useState<any[]>([]);
@@ -23,12 +22,11 @@ export default function Dashboard() {
   const [topProductsData, setTopProductsData] = useState<any[]>([]);
   const [lowStockProducts, setLowStockProducts] = useState<any[]>([]);
 
-  // State for Reportes
   const [deliveredOrders, setDeliveredOrders] = useState<any[]>([]);
   const [loadingReports, setLoadingReports] = useState(false);
   const [startDate, setStartDate] = useState(() => {
     const d = new Date();
-    d.setDate(1); // Default to first day of current month
+    d.setDate(1);
     return d.toISOString().split('T')[0];
   });
   const [endDate, setEndDate] = useState(() => {
@@ -44,17 +42,15 @@ export default function Dashboard() {
   const fetchReportsData = async () => {
     try {
       setLoadingReports(true);
-      // Fetch a larger dataset, filtering will happen on frontend for simplicity
       const res = await adminApi.getDeliveredOrders(0, 2000);
       setDeliveredOrders(res.content || []);
     } catch (error) {
-      console.error("Error fetching reports", error);
+      console.error("Error al obtener reportes:", error);
     } finally {
       setLoadingReports(false);
     }
   };
 
-  // Filter and compute KPIs
   const { filteredReports, kpis } = useMemo(() => {
     if (!deliveredOrders.length) return { filteredReports: [], kpis: { total: 0, count: 0, avg: 0 } };
 
@@ -87,7 +83,6 @@ export default function Dashboard() {
   const exportToCSV = () => {
     if (filteredReports.length === 0) return;
     
-    // Add BOM for Excel UTF-8 support and use semicolon for column division
     let csv = '\uFEFFCliente;Fecha Orden;Fecha Entrega;Total (S/.);Metodo Pago;Repartidor\n';
     
     filteredReports.forEach(order => {
@@ -96,7 +91,6 @@ export default function Dashboard() {
       const clientName = `"${(order.clientName || '').replace(/"/g, '""')}"`;
       const date = `"${new Date(order.date).toLocaleString()}"`;
       const deliveryDate = `"${order.deliveryDate ? new Date(order.deliveryDate).toLocaleString() : ''}"`;
-      // Convert to string and replace period with comma for decimals if Excel expects it, though string is usually fine.
       const totalStr = `"${total.toFixed(2).replace('.', ',')}"`;
       const paymentMethod = `"${(order.paymentMethod || 'N/A').replace(/"/g, '""')}"`;
       const deliveredBy = `"${(order.deliveredBy?.name || 'N/A').replace(/"/g, '""')}"`;
@@ -119,23 +113,19 @@ export default function Dashboard() {
     
     const doc = new jsPDF('landscape');
     
-    // Title & Header
     doc.setFontSize(24);
     doc.setTextColor(41, 128, 185);
     doc.text('Velazco - Reporte de Ventas', 14, 22);
     
-    // Date Range
     doc.setFontSize(11);
     doc.setTextColor(100);
     doc.text(`Periodo: ${startDate} al ${endDate}`, 14, 30);
     doc.text(`Generado: ${new Date().toLocaleString()}`, 14, 36);
     
-    // KPIs Background
     doc.setDrawColor(200);
     doc.setFillColor(245, 247, 250);
     doc.roundedRect(14, 42, 269, 25, 3, 3, 'FD');
     
-    // KPIs Data
     doc.setFontSize(12);
     doc.setTextColor(50);
     doc.text(`Ingresos Totales:`, 20, 52);
@@ -154,7 +144,6 @@ export default function Dashboard() {
     
     doc.setFont('helvetica', 'normal');
 
-    // Table
     const tableColumn = ["ID", "Cliente", "Fecha Orden", "Fecha Entrega", "Método Pago", "Repartidor", "Total"];
     const tableRows: any[] = [];
 
@@ -214,15 +203,12 @@ export default function Dashboard() {
           adminApi.getLowStockProducts()
         ]);
 
-        // Daily (Returns a List of DailySaleResponseDto)
         if (Array.isArray(daily) && daily.length > 0) {
-          // Assuming the first item is the most recent day (today)
           const today = daily[0];
           setDailySalesTotal(today.totalSales || 0);
           setDailyOrdersCount(today.salesCount || 0);
         }
 
-        // Weekly (Returns a List of WeeklySaleResponseDto)
         if (Array.isArray(weekly) && weekly.length > 0) {
           const currentWeek = weekly[0];
           if (currentWeek.orders) {
@@ -234,7 +220,6 @@ export default function Dashboard() {
           }
         }
 
-        // Top Products
         if (Array.isArray(top)) {
           const mappedTop = top.map(t => ({
             name: t.productName,
@@ -243,7 +228,6 @@ export default function Dashboard() {
           setTopProductsData(mappedTop);
         }
 
-        // Payment Methods
         if (Array.isArray(payments)) {
           const mappedPayments = payments.map((p, i) => ({
             name: p.paymentMethod,
@@ -253,13 +237,12 @@ export default function Dashboard() {
           setPaymentMethodsData(mappedPayments);
         }
 
-        // Low Stock (Returns an object with 'products' array)
         if (lowStock && lowStock.products) {
           setLowStockProducts(lowStock.products);
         }
 
       } catch (error) {
-        console.error("Error fetching dashboard data:", error);
+        console.error("Error al obtener datos del dashboard:", error);
       } finally {
         setLoading(false);
       }
@@ -327,7 +310,6 @@ export default function Dashboard() {
           </div>
 
           <div className={styles.chartsGrid}>
-            {/* Ventas Semanales */}
             <div className={styles.chartCard}>
               <h2>Ventas Semanales</h2>
               <div className={styles.chartWrapper}>
@@ -343,7 +325,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Ventas por Método de Pago */}
             <div className={styles.chartCard}>
               <h2>Ventas por Método de Pago</h2>
               <div className={styles.chartWrapper}>
@@ -383,7 +364,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Productos Más Vendidos */}
             <div className={styles.chartCard}>
               <h2>Productos Más Vendidos (Mes)</h2>
               <div className={styles.horizontalBarsContainer}>
@@ -405,7 +385,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Productos con Bajo Stock */}
             <div className={styles.chartCard}>
               <h2>Productos con Bajo Stock</h2>
               <div className={styles.lowStockList}>

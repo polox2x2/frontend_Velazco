@@ -23,7 +23,7 @@ function Home() {
 
   const randomTres = useMemo(() => {
     if (!productos || productos.length === 0) return [];
-    // Shuffle the products randomly
+    // Mezclar productos aleatoriamente
     const shuffled = [...productos].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, 3);
   }, [productos]);

@@ -39,7 +39,7 @@ export const exportChatToPdf = (text: string) => {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     
-    // Check if it's a JSON chart block
+    // Verificar si es un bloque JSON
     if (line.includes('```json_chart')) {
       let jsonContent = '';
       i++;
@@ -101,17 +101,17 @@ export const exportChatToPdf = (text: string) => {
       continue;
     }
 
-    // Check if it's a markdown table
+    // Verificar si es una tabla markdown
     if (line.includes('|') && line.trim().startsWith('|')) {
       const tableLines = [];
       while (i < lines.length && lines[i].includes('|')) {
         tableLines.push(lines[i]);
         i++;
       }
-      i--; // backtrack one to let the loop increment correctly
+      i--; // Retroceder uno para que el bucle incremente correctamente
       
       const headers = tableLines[0].split('|').map(s => s.trim()).filter(s => s);
-      // tableLines[1] is usually |---|---|
+      // tableLines[1] usualmente es |---|---|
       const rows = tableLines.slice(2).map(r => r.split('|').map(s => s.trim()).filter(s => s));
       
       autoTable(doc, {
@@ -128,8 +128,8 @@ export const exportChatToPdf = (text: string) => {
       });
       y = (doc as any).lastAutoTable.finalY + 15;
     } else {
-      // Normal text
-      // Clean up markdown syntax
+      // Texto normal
+      // Limpiar sintaxis markdown
       const cleanLine = line
         .replace(/\*\*/g, '')
         .replace(/#/g, '')
@@ -145,21 +145,21 @@ export const exportChatToPdf = (text: string) => {
         }
         y += 2;
       } else {
-        // empty line
+        // Línea vacía
         y += 4;
       }
     }
     
     if (y > 270) {
       doc.addPage();
-      // Add top bar to new page
+      // Agregar barra superior en nueva página
       doc.setFillColor(79, 70, 229);
       doc.rect(0, 0, 210, 8, 'F');
       y = 20;
     }
   }
   
-  // Footer page numbers
+  // Números de página en pie de página
   const pageCount = (doc as any).internal.getNumberOfPages();
   for (let i = 1; i <= pageCount; i++) {
     doc.setPage(i);

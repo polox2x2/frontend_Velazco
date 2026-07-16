@@ -80,7 +80,7 @@
 .btnDelete { color: #dc2626; }
 .btnDelete:hover { background: #fee2e2; }
 
-/* Modal Styles */
+/* Estilos de Modal */
 .modalOverlay {
   position: fixed;
   top: 0;
