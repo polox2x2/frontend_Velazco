@@ -95,6 +95,7 @@ export default function Produccion() {
       };
       await adminApi.finalizeProduction(id, payload);
       fetchData();
+      fetchFormData();
       Swal.fire('¡Listo!', 'Producción finalizada. El inventario ha sido actualizado.', 'success');
     } catch (error) {
       console.error(error);
@@ -337,7 +338,7 @@ export default function Produccion() {
                         >
                           <option value="">-- Seleccionar Producto --</option>
                           {products.map(p => (
-                            <option key={p.id} value={p.id}>{p.name} (Stock act: {p.stockQuantity})</option>
+                            <option key={p.id} value={p.id}>{p.name} (Stock act: {p.stock})</option>
                           ))}
                         </select>
                         <input 
